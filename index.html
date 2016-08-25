@@ -14,50 +14,31 @@
 
 </head>
 
-<body ng-controller='topspotsListCtrl'>
+<body ng-controller='topspotsListCtrl as vm'>
     <div class="wrapper">
         <header class="main-header">
             <h1>San Diego Top Spots</h1>
         </header>
-
-        <div id="map_wrapper" class="row well">
-            <!-- <div id="map_canvas" class="mapping"></div> -->
-            <ui-gmap-google-map 
-                        center='map.center' 
-                        zoom='map.zoom'
-                        >
-              <!--   <ui-gmap-marker 
-                        idKey='marker.id'
-                        coords="marker.coords"
-                        >
-                </ui-gmap-marker> -->
-                <ui-gmap-markers
-                        models='markers'
-                        coords="'location'"
-                        >
-                </ui-gmap-markers>
-            </ui-gmap-google-map>
-        </div>
  
         
 
         <div class="container">
             
             <div class="row well">
-                <form role="form" ng-submit="addNew()">
+                <form role="form" ng-submit="vm.addNew()">
                     <div class="row">
                         <h5>Feel free to enter a new hot spot into our San Diego list:</h5>
                         <div class="form-group">
                             <div class="col-md-2">
-                                <input type="text" class="form-control" id="" placeholder="Name" ng-model="name" required="required">
+                                <input type="text" class="form-control" id="" placeholder="Name" ng-model="vm.name" required="required">
                             </div>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="descriptionInput" placeholder="Description" ng-model="description" required="required">
+                                <input type="text" class="form-control" id="descriptionInput" placeholder="Description" ng-model="vm.description" required="required">
                             </div>
                             <div class="col-md-2">
-                                <input type="number" step="any" class="form-control" id="linkInput" placeholder="Latitude" ng-model="location_lat" required>
+                                <input type="number" step="any" class="form-control" id="linkInput" placeholder="Latitude" ng-model="vm.location_lat" required>
                                 <br>
-                                <input type="number" step="any" class="form-control" id="linkInput" placeholder="Longitude" ng-model="location_lng" required>
+                                <input type="number" step="any" class="form-control" id="linkInput" placeholder="Longitude" ng-model="vm.location_lng" required>
                             </div>
                         </div>
                     </div>
@@ -82,7 +63,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat='topspot in topspots'>
+                            <tr ng-repeat='topspot in vm.topspots'>
                                 <td id="outputName">{{topspot.name}}</td>
                                 <td id="outputDescription">{{topspot.description}}</td>
                                 <td><a ng-href="http://maps.google.com/maps?q={{topspot.location[0]}}, {{topspot.location[1]}}" class="btn btn-primary")>{{topspot.location[0]}}, {{topspot.location[1]}}</td>
@@ -93,6 +74,7 @@
             </div>
         </div>
     </div>
+    <pre>{{vm.topspots | json}}</pre>
 
     <!-- Used to set up sticky footer -->
     <div class="push"></div>
@@ -114,7 +96,6 @@
 
     <!-- inject:js -->
 	<script src="/app/app.js"></script>
-	<!-- <script src="/app/google_maps.js"></script> -->
 	<script src="/app/topSpots.controller.js"></script>
 	<script src="/app/topSpots.factory.js"></script>
 	<!-- endinject -->
